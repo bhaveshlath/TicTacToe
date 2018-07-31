@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     int activePlayer = 0;
     boolean gameIsActive = true;
     int[] gameState = {2, 2, 2, 2, 2, 2, 2, 2, 2};
-    int [][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6, 2}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+    int [][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
 
     public void dropIn(View view){
         ImageView positionClicked = (ImageView) view;
@@ -34,16 +34,18 @@ public class MainActivity extends AppCompatActivity {
                         gameState[winningPosition[1]] == gameState[winningPosition[2]] &&
                         gameState[winningPosition[0]] != 2){
                     gameOver(false, gameState[winningPosition[0]]);
-                }else{
-                    boolean gameIsOver = true;
-                    for(int counterState: gameState){
-                        if(counterState == 2)
-                            gameIsOver = false;
-                    }
+                    break;
+                }
+            }
+            if(gameIsActive) {
+                boolean gameIsOver = true;
+                for (int counterState : gameState) {
+                    if (counterState == 2)
+                        gameIsOver = false;
+                }
 
-                    if(gameIsOver){
-                        gameOver(true, -1);
-                    }
+                if (gameIsOver) {
+                    gameOver(true, -1);
                 }
             }
         }
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         View winningLayout = findViewById(R.id.winningLayout);
-//        winningLayout.setVisibility(View.VISIBLE);
+        winningLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
